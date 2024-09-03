@@ -14,6 +14,13 @@ import { TimeSlot } from 'src/entities/time-slots.entity';
 
 @Table({
   timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['timeSlotId', 'roomNumber', 'date'],
+      // To prevent room to be booked at the same time
+    },
+  ],
 })
 export class Session extends Model<Session> {
   @PrimaryKey
@@ -58,7 +65,7 @@ export class Session extends Model<Session> {
   })
   room: Room;
 
-  @BelongsTo(() => Room, {
+  @BelongsTo(() => Movie, {
     onDelete: 'CASCADE',
   })
   movie: Movie;

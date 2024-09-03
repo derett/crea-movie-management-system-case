@@ -23,11 +23,11 @@ Todo
   customerId
   movieId
   date
-[ ] Manager can:
+[X] Manager can:
   Add,
   Modify,
   Delete Movies
-[ ] All Users can:
+[X] All Users can:
   List Movies
 [ ] Customers can:
   Buy tickets

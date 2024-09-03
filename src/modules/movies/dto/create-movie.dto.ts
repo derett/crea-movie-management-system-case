@@ -1,5 +1,5 @@
 export class CreateMovieDto {
-  readonly content: string;
+  readonly name: string;
 
-  readonly title: string;
+  readonly ageRestriction: number;
 }

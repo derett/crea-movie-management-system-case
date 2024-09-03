@@ -24,7 +24,6 @@ export class Movie extends Model<Movie> {
 
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
   })
   ageRestriction: number;
 
