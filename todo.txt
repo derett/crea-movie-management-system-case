@@ -1,0 +1,47 @@
+Todo
+
+[X] - User Register / Login
+  User:
+    username
+    password
+    age
+[X] - Roles: managers and customers
+[X] - Movies:
+  name
+  ageRestriction
+[X] - Sessions:
+  date
+  timeSlot [10.00-12.00, 12.00-14.00, …, 22.00-00.00]
+  roomNumber
+[X] Movies - Sessions join table
+  movieId
+  sessionId
+[X] Ticket:
+  customerId (User)
+  moviesSessionsId
+[X] Watch History
+  customerId
+  movieId
+  date
+[ ] Manager can:
+  Add,
+  Modify,
+  Delete Movies
+[ ] All Users can:
+  List Movies
+[ ] Customers can:
+  Buy tickets
+  Watch movies (Customers can watch movies for which they have a valid ticket.)
+  View Watch History
+[ ] Testing: Your application should have unit tests and end-to-end tests.
+
+----------------------------
+[ ] Domain-Driven Design
+[ ] Swagger
+
+----------------------------
+
+[ ] Bulk Add, Delete movies
+[ ] Logic checks (room should not be double booked, movie age restriction)
+[ ] Movies sorting, filtering
+[ ] Automatic deployment Github to Heroku

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "439e7579-73c2-4de5-9a23-4013001fa579",
+    "username": "manager1",
+    "password": "123",
+    "age": 20,
+    "roles": ["manager"]
+  },
+  {
+    "id": "733d081b-db1f-40bf-8378-85007d6a3163",
+    "username": "manager2",
+    "password": "123",
+    "age": 20,
+    "roles": ["manager"]
+  },
+  {
+    "id": "0ec07a28-63bd-4102-86c5-c9d9ac2b42c4",
+    "username": "customer1",
+    "password": "123",
+    "age": 20,
+    "roles": ["customer"]
+  },
+  {
+    "id": "81f05243-043d-478e-b517-faf87a870e5e",
+    "username": "customer2",
+    "password": "123",
+    "age": 22,
+    "roles": ["customer"]
+  },
+  {
+    "id": "e31b20e2-3509-4034-a450-0e94468be1e0",
+    "username": "underAgeCustomer",
+    "password": "123",
+    "age": 16,
+    "roles": ["customer"]
+  }
+]
