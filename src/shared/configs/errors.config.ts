@@ -5,9 +5,6 @@ enum ServerErrorType {
   PROPERTY_IS_MISSING,
   RECORD_IS_MISSING,
   AN_UNKNOWN_ERROR_IS_OCCURRED,
-  UUID_IS_INVALID,
-  INVALID_ARGS,
-  IP_IS_INVALID,
 
   LOAD_OPTIONS_IS_INVALID,
   ORDER_OPTIONS_IS_INVALID,
@@ -31,6 +28,7 @@ enum ServerErrorType {
 
   AGE_RESTRICTION,
   NOT_FOUND,
+  INVALID_TICKET,
 }
 
 class ServerError extends Error {
@@ -44,6 +42,12 @@ class ServerError extends Error {
     this.name = ServerErrorType[type];
 
     switch (type) {
+      case ServerErrorType.INVALID_TICKET: {
+        this.message = `Invalid Ticket`;
+        this.statusCode = HttpStatus.FORBIDDEN;
+        break;
+      }
+
       case ServerErrorType.NOT_FOUND: {
         this.message = `${args[0]} not found`;
         this.statusCode = HttpStatus.NOT_FOUND;
@@ -85,19 +89,6 @@ class ServerError extends Error {
       /** */
       case ServerErrorType.ID_IS_INVALID: {
         this.message = `"${args[0]} is not a valid id`;
-        break;
-      }
-
-      case ServerErrorType.UUID_IS_INVALID: {
-        this.message = `"${args[0]}" is not a valid uuid.`;
-        break;
-      }
-      case ServerErrorType.INVALID_ARGS: {
-        this.message = `"${args[0]}" is not a valid argument.`;
-        break;
-      }
-      case ServerErrorType.IP_IS_INVALID: {
-        this.message = `"${args[0]}" is not a valid ip.`;
         break;
       }
 

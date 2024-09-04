@@ -10,6 +10,7 @@ import {
 } from 'sequelize-typescript';
 import { Movie } from 'src/entities/movie.entity';
 import { User } from 'src/entities/users.entity';
+import { Session } from './session.entity';
 
 @Table
 export class WatchHistory extends Model<WatchHistory> {
@@ -38,9 +39,13 @@ export class WatchHistory extends Model<WatchHistory> {
   })
   customer: User;
 
-  @Column({
-    type: DataType.DATE,
-    allowNull: false,
+  @ForeignKey(() => Session)
+  @Column(DataType.UUID)
+  sessionId: string;
+
+  @BelongsTo(() => Session, {
+    onDelete: 'CASCADE',
+    foreignKey: 'sessionId',
   })
-  date: string;
+  session: Session;
 }
