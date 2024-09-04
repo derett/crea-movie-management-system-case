@@ -29,7 +29,7 @@ Todo
   Delete Movies
 [X] All Users can:
   List Movies
-[ ] Customers can:
+[X] Customers can:
   Buy tickets
   Watch movies (Customers can watch movies for which they have a valid ticket.)
   View Watch History

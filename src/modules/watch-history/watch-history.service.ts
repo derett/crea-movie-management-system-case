@@ -7,6 +7,9 @@ import { ServerError, ServerErrorType } from 'src/shared/configs/errors.config';
 import { Session } from 'src/entities/session.entity';
 import { Movie } from 'src/entities/movie.entity';
 import { User } from 'src/entities/users.entity';
+import { WhereOptions } from 'sequelize';
+import { Room } from 'src/entities/room.entity';
+import { TimeSlot } from 'src/entities/time-slots.entity';
 
 @Injectable()
 export class WatchHistoryService {
@@ -14,6 +17,36 @@ export class WatchHistoryService {
     @InjectModel(Ticket) private ticketModel: typeof Ticket,
     @InjectModel(WatchHistory) private watchHistoryModel: typeof WatchHistory,
   ) {}
+
+  async getWatchHistory(
+    customer?: User,
+  ): Promise<{ rows: WatchHistory[]; count: number }> {
+    const whereClause: WhereOptions<WatchHistory> = {};
+
+    if (customer) {
+      whereClause.customerId = customer.id;
+    }
+
+    return this.watchHistoryModel.findAndCountAll({
+      where: whereClause,
+      include: [
+        {
+          model: Movie,
+        },
+        {
+          model: Session,
+          include: [
+            {
+              model: TimeSlot,
+            },
+            {
+              model: Room,
+            },
+          ],
+        },
+      ],
+    });
+  }
 
   async watchMovie(dto: WatchMovieDto, customer: User): Promise<void> {
     const ticket = await this.ticketModel.findByPk(dto.ticketId, {
