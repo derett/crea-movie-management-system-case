@@ -1,3 +1,5 @@
+import { HttpStatus } from '@nestjs/common';
+
 enum ServerErrorType {
   GIVEN_INPUT_IS_INVALID,
   PROPERTY_IS_MISSING,
@@ -26,6 +28,9 @@ enum ServerErrorType {
 
   JSON_READ_FROM_FILE,
   ID_IS_INVALID,
+
+  AGE_RESTRICTION,
+  NOT_FOUND,
 }
 
 class ServerError extends Error {
@@ -39,6 +44,17 @@ class ServerError extends Error {
     this.name = ServerErrorType[type];
 
     switch (type) {
+      case ServerErrorType.NOT_FOUND: {
+        this.message = `${args[0]} not found`;
+        this.statusCode = HttpStatus.NOT_FOUND;
+        break;
+      }
+
+      case ServerErrorType.AGE_RESTRICTION: {
+        this.message = `You must be ${args[0]} years old or above`;
+        break;
+      }
+
       case ServerErrorType.TOKEN_NOT_VERIFIED: {
         this.message = `Supplied token was not verified`;
         break;

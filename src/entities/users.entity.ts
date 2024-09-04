@@ -34,7 +34,7 @@ export class User extends Model<User> {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  age: string;
+  age: number;
 
   @BelongsToMany(() => Role, () => UserRole)
   roles: Role[];
