@@ -30,7 +30,7 @@ export class MoviesController {
   @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.moviesService.findOne(id);
+    return this.moviesService.findOne(id, true);
   }
 
   @RolesDec(UserRoles.Manager)

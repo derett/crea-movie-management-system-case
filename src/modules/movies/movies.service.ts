@@ -44,19 +44,24 @@ export class MoviesService {
     return this.model.findAll();
   }
 
-  findOne(id: string): Promise<Movie> {
-    return this.model.findByPk(id, { include: [...this.includeSessions] });
+  findOne(id: string, includeSession = false): Promise<Movie> {
+    return this.model.findByPk(id, {
+      include: includeSession ? [...this.includeSessions] : [],
+    });
   }
 
   async update(updateMovieDto: UpdateMovieDto): Promise<Movie> {
-    const [, [entity]] = await this.model.update(
-      pick(updateMovieDto, this.updateAttributtes),
-      {
+    const updates = pick(updateMovieDto, this.updateAttributtes);
+
+    if (Object.values(updates).length) {
+      const [, [entity]] = await this.model.update(updates, {
         where: { id: updateMovieDto.id },
         returning: true,
-      },
-    );
-    return entity;
+      });
+      return entity;
+    }
+
+    return this.findOne(updateMovieDto.id);
   }
 
   async delete(id: string): Promise<void> {
