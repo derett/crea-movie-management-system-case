@@ -1,18 +1,16 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { FastifyRequest } from 'fastify';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDataDto } from './dto/register-data.dto';
 import { Public } from 'src/shared/decorators/public.decorator';
+import { LoginDto } from './dto/login.dto';
 
 @Public()
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-  @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Req() req: FastifyRequest) {
-    return this.authService.login(req.user);
+  async login(@Body() loginBody: LoginDto) {
+    return this.authService.login(loginBody);
   }
   @Post('register')
   async register(@Body() registerBody: RegisterDataDto) {

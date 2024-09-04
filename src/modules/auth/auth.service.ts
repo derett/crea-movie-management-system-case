@@ -3,13 +3,14 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { RegisterDataDto } from './dto/register-data.dto';
 import { compareSync, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/entities/users.entity';
 import { AccessToken, AccessTokenPayload } from 'src/shared/types/auth.types';
+import { LoginDto } from './dto/login.dto';
 
 const salt = 10;
 
@@ -74,7 +75,12 @@ export class AuthService {
     }
   }
 
-  async login(user: User): Promise<AccessToken> {
+  async login(dto: LoginDto): Promise<AccessToken> {
+    const user = await this.validateUser(dto.username, dto.password);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
     const payload: AccessTokenPayload = {
       username: user.username,
       id: user.id,
