@@ -1,3 +1,4 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   Column,
   DataType,
@@ -16,12 +17,16 @@ export class Movie extends Model<Movie> {
   @Column(DataType.UUID)
   id: string;
 
+  @ApiProperty({ description: 'Name of the Movie' })
   @Column({
     type: DataType.STRING,
     allowNull: false,
   })
   name: string;
 
+  @ApiPropertyOptional({
+    description: 'Age restriction for the movie if applied',
+  })
   @Column({
     type: DataType.INTEGER,
   })

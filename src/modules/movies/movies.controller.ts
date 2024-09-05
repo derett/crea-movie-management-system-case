@@ -15,7 +15,9 @@ import { UserRoles } from 'src/shared/enums/roles.enum';
 import { RolesGuard } from 'src/shared/guards/roles.guard';
 import { MoviesService } from './movies.service';
 import { Public } from 'src/shared/decorators/public.decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('movies')
 @UseGuards(RolesGuard)
 @Controller('movies')
 export class MoviesController {
@@ -33,18 +35,21 @@ export class MoviesController {
     return this.moviesService.findOne(id, true);
   }
 
+  @ApiBearerAuth()
   @RolesDec(UserRoles.Manager)
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
     return this.moviesService.create(createMovieDto);
   }
 
+  @ApiBearerAuth()
   @RolesDec(UserRoles.Manager)
   @Patch()
   update(@Body() updateMovieDto: UpdateMovieDto) {
     return this.moviesService.update(updateMovieDto);
   }
 
+  @ApiBearerAuth()
   @RolesDec(UserRoles.Manager)
   @Delete(':id')
   remove(@Param('id') id: string) {

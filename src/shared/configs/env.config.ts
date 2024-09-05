@@ -37,6 +37,8 @@ require('dotenv').config({
 export default {
   productionMode: configData.NODE_ENV === 'production',
   logsDisabled: process.env.LOGS_DISABLED === 'true',
+  host: loadString('HOST', { defaultValue: '0.0.0.0' }),
+  remote: loadString('REMOTE', { defaultValue: 'http://127.0.0.1' }),
   port: loadNumber('PORT', { defaultValue: 5000 }),
   jwtSecret: loadString('JWT_SECRET'),
   jwtExpireSecs: loadNumber('JWT_EXPIRE_SECS', { defaultValue: 60 * 60 * 24 }),

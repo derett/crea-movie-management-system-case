@@ -6,7 +6,10 @@ import { UserRoles } from 'src/shared/enums/roles.enum';
 import { BuyTicketDto } from './dto/buy-ticket.dto';
 import { FastifyRequest } from 'fastify';
 import { UserGuard } from 'src/shared/guards/user.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('tickets')
+@ApiBearerAuth()
 @UseGuards(RolesGuard, UserGuard)
 @Controller('tickets')
 export class TicketsController {

@@ -4,7 +4,10 @@ import { WatchMovieDto } from './dto/watch-movie.dto';
 import { FastifyRequest } from 'fastify';
 import { UserRoles } from 'src/shared/enums/roles.enum';
 import { RolesDec } from 'src/shared/decorators/roles.decorator';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('watch-history')
 @Controller('watch-history')
 export class WatchHistoryController {
   constructor(private readonly watchHistoryService: WatchHistoryService) {}

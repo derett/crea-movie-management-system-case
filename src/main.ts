@@ -21,6 +21,7 @@ import { AppModule } from './app/app.module';
 
 import { version } from '../package.json';
 import { join } from 'path';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const args = process.argv.slice(2);
 
@@ -88,16 +89,39 @@ async function bootstrap() {
 
   app.useStaticAssets({ root: join(process.cwd(), 'public') });
 
-  await app.listen(envConfig.port, '0.0.0.0');
+  const config = new DocumentBuilder()
+    .setTitle('Crea Movie Management System Case Study')
+    .setDescription(
+      'API Service for Managers to organize Movies and Sessions, Customers to buy tickets, watch movies, view watch history',
+    )
+    .setVersion(version)
+    .addBearerAuth()
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('doc', app, document);
 
+  await app.listen(envConfig.port, envConfig.host);
+
+  console.log(
+    `${chalk.blue.bold(`[PID: ${process.pid}]`)} ${chalk.green.bold(
+      '✓',
+    )} Server is running on port ${chalk.white.bold(
+      envConfig.port,
+    )} in production mode`,
+  );
+
+  console.log(
+    `${chalk.blue.bold(`[PID: ${process.pid}]`)} ${chalk.green.bold(
+      '✓',
+    )} Server is running on  ${chalk.white.bold(envConfig.host)}:${chalk.white.bold(envConfig.port)}`,
+  );
+  console.log(
+    `${chalk.blue.bold(`[PID: ${process.pid}]`)} ${chalk.green.bold(
+      '✓',
+    )} Access Docs: ${envConfig.remote}:${envConfig.port}/doc`,
+  );
   if (envConfig.productionMode) {
-    console.log(
-      `${chalk.blue.bold(`[PID: ${process.pid}]`)} ${chalk.green.bold(
-        '✓',
-      )} Server is running on port ${chalk.white.bold(
-        envConfig.port,
-      )} in production mode`,
-    );
+    console.log(`Server is running in production mode`);
   }
 
   logVersion();
