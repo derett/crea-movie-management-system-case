@@ -17,11 +17,12 @@
 - Manager can CRUD Movies
 - All Users can view Movies and a single Movie
 - Customers can Buy Ticket, Watch Movie, Get Watch History
+- Managers can get all users, get roles and assign role to a user
+  - First registered user to the system is set as Manager, rest is Customer. First manager can assign roles to others.
 
 ### Missing Scenarios:
 
 - CRUD Operations for Sessions: Was not mentioned on the assignment but with the current setup, if there are no seeders users cannot go further than listing Movies, as there will no Sessions to buy Ticket for.
-- Default role assignment for Users and Updating roles of users: When Users table is empty. First user that registers should have Manager privilege. Manager should be able to promote Customers into Managers. Currently role assignments only available by seeders.
 
 ### Testing:
 
