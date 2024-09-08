@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString, Max, Min } from 'class-validator';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -9,4 +9,10 @@ export class CreateUserDto {
   @ApiProperty()
   @IsString()
   readonly password: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @Min(3)
+  @Max(120)
+  readonly age: number;
 }
