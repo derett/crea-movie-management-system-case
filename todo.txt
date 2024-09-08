@@ -13,9 +13,6 @@ Todo
   date
   timeSlot [10.00-12.00, 12.00-14.00, …, 22.00-00.00]
   roomNumber
-[X] Movies - Sessions join table
-  movieId
-  sessionId
 [X] Ticket:
   customerId (User)
   moviesSessionsId
