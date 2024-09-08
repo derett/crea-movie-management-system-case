@@ -177,7 +177,7 @@ describe('WatchHistory Controller (e2e)', () => {
       });
   });
 
-  it('/watch-history/history Legal Age (POST)', () => {
+  it('/watch-history/history (GET)', () => {
     return app
       .inject({
         method: 'GET',
