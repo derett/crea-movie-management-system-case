@@ -2,6 +2,12 @@
 
 [Back to README](README.md)
 
+Deployed on [Render](https://render.com/) platorm.
+
+- URL: `https://crea-movie-management-system-case.onrender.com`
+- API URL: `https://crea-movie-management-system-case.onrender.com/api`
+- [Swagger Docs](https://crea-movie-management-system-case.onrender.com/doc)
+
 ### Database expectations are met:
 
 - User consists of username, password and age
@@ -54,7 +60,15 @@
 
 - Bulk CRUD operations on Movies: A simple task but didn't priotorize yet
 - Sorting and filtereing opts for Movies: A simple task but didn't priotorize yet
-- Automatic deployment from Github to Cloud: Couldn't find free option for Heroku so tried on [Render](https://render.com/). Automation was set endpoints were reachable, swagger doc was online, but couldn't figure out how to run Seeders to inject some data into it. Then didn't spend much time in order to continue with the rest of the assignment
+
+### If I had more time:
+
+- Complete nice to have features
+- Change code architecture for Domain-Driven Design
+- Even if there is a custom error handling. I could add more expection handlers especially those throwen by Sequelize
+- Add CRUD operations for Rooms and TimeSlots so that Manager can manage more
+- Think about and add more logical checks if I could find more.
+- Spend more time on Swagger documentation
 
 ## How to Test
 
