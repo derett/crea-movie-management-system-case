@@ -4,7 +4,7 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 
 import { InjectModel } from '@nestjs/sequelize';
-import { pick } from 'lodash';
+import { forIn, pick } from 'lodash';
 import { Movie } from 'src/entities/movie.entity';
 import { Includeable } from 'sequelize';
 import { Session } from 'src/entities/session.entity';
@@ -53,15 +53,17 @@ export class MoviesService {
   async update(updateMovieDto: UpdateMovieDto): Promise<Movie> {
     const updates = pick(updateMovieDto, this.updateAttributtes);
 
+    const entity = await this.findOne(updateMovieDto.id);
     if (Object.values(updates).length) {
-      const [, [entity]] = await this.model.update(updates, {
-        where: { id: updateMovieDto.id },
-        returning: true,
+      forIn(updates, (value, key: keyof typeof updates) => {
+        // TODO Fix this ts-ignore
+        // @ts-ignore
+        entity[key] = value;
       });
-      return entity;
+      await entity.save();
     }
 
-    return this.findOne(updateMovieDto.id);
+    return entity;
   }
 
   async delete(id: string): Promise<void> {

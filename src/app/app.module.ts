@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import databaseConfig from 'src/shared/configs/database.config';
 import { APP_GUARD } from '@nestjs/core';
@@ -17,9 +15,8 @@ import { DataModule } from 'src/modules/data/data.module';
     AuthModule,
     DataModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: JwtGuard,

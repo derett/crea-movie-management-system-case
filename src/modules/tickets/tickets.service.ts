@@ -37,12 +37,6 @@ export class TicketsService {
     if (!session) {
       throw new ServerError(ServerErrorType.NOT_FOUND, 'Session');
     }
-    if (!session.movie) {
-      throw new ServerError(
-        ServerErrorType.NOT_FOUND,
-        'Movie for selected Session',
-      );
-    }
 
     this.checkAge(customer.age, session.movie);
 

@@ -1,16 +1,11 @@
-import {
-  BadRequestException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { RegisterDataDto } from './dto/register-data.dto';
 import { compareSync, hash } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { AccessToken, AccessTokenPayload } from 'src/shared/types/auth.types';
 import { LoginDto } from './dto/login.dto';
+import { ServerError, ServerErrorType } from 'src/shared/configs/errors.config';
 
 const salt = 10;
 
@@ -24,11 +19,13 @@ export class AuthService {
   async register(user: RegisterDataDto) {
     const existingUser = await this.usersService.getByUsername(user.username);
     if (existingUser) {
-      throw new BadRequestException('Username already exists');
+      throw new ServerError(ServerErrorType.USER_CREDENTIALS_ARE_WRONG);
     }
 
     if (user.password !== user.passwordConfirmation) {
-      throw new BadRequestException('Password confirmation mismatch');
+      throw new ServerError(
+        ServerErrorType.PASSWORD_AND_CONFIRMATION_DO_NOT_MATCH,
+      );
     }
 
     const hashedPassword = await hash(user.password, salt);
@@ -41,16 +38,7 @@ export class AuthService {
       createdUser.password = undefined;
       return createdUser;
     } catch (error) {
-      if (error?.name === 'SequelizeUniqueConstraintError') {
-        throw new HttpException(
-          'User with that username already exists',
-          HttpStatus.BAD_REQUEST,
-        );
-      }
-      throw new HttpException(
-        'Something went wrong',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new ServerError(ServerErrorType.AN_UNKNOWN_ERROR_IS_OCCURRED);
     }
   }
 
@@ -58,20 +46,17 @@ export class AuthService {
     try {
       const user = await this.usersService.getByUsername(username, true);
       if (!user) {
-        throw new BadRequestException('User not found');
+        throw new ServerError(ServerErrorType.USER_CREDENTIALS_ARE_WRONG);
       }
 
       const isMatch: boolean = compareSync(password, user.password);
       if (!isMatch) {
-        throw new BadRequestException('Password does not match');
+        throw new ServerError(ServerErrorType.USER_CREDENTIALS_ARE_WRONG);
       }
       user.password = undefined;
       return user;
     } catch (error) {
-      throw new HttpException(
-        'Wrong credentials provided',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new ServerError(ServerErrorType.USER_CREDENTIALS_ARE_WRONG);
     }
   }
 

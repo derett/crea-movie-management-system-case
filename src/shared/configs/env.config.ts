@@ -19,7 +19,6 @@ process.env.LOGS_DISABLED = configData.LOGS_DISABLED;
 const envFileMap = {
   production: '.env',
   development: '.dev.env',
-  test: '.test.env',
   default: '.dev.env',
 };
 

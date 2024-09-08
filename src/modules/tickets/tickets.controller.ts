@@ -16,7 +16,7 @@ export class TicketsController {
   constructor(private readonly ticketService: TicketsService) {}
 
   @RolesDec(UserRoles.Customer)
-  @Post()
+  @Post('buy')
   buyTicket(@Body() dto: BuyTicketDto, @Req() req: FastifyRequest) {
     return this.ticketService.buyTicket(dto, req.user);
   }

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { WatchHistoryService } from './watch-history.service';
 import { WatchMovieDto } from './dto/watch-movie.dto';
 import { FastifyRequest } from 'fastify';
@@ -19,6 +27,7 @@ export class WatchHistoryController {
   }
 
   @RolesDec(UserRoles.Customer)
+  @HttpCode(HttpStatus.OK)
   @Post('watch')
   watchMovie(@Body() dto: WatchMovieDto, @Req() req: FastifyRequest) {
     return this.watchHistoryService.watchMovie(dto, req.user);
