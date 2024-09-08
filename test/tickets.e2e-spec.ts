@@ -85,8 +85,10 @@ describe('TicketsController (e2e)', () => {
 
     token = loginResult.token;
 
-    await TimeSlot.bulkCreate([ticketsTestData.timeSlot]);
-    await Room.bulkCreate(ticketsTestData.rooms);
+    await TimeSlot.bulkCreate([ticketsTestData.timeSlot], {
+      ignoreDuplicates: true,
+    });
+    await Room.bulkCreate(ticketsTestData.rooms, { ignoreDuplicates: true });
     await Movie.bulkCreate(ticketsTestData.movies);
     await Session.bulkCreate(ticketsTestData.sessions);
   });

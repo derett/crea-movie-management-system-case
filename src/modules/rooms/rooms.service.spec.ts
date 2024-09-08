@@ -11,6 +11,7 @@ describe('RoomsService', () => {
     findAll: jest
       .fn()
       .mockImplementation(() => Promise.resolve(ticketsTestData.rooms)),
+    bulkCreate: jest.fn().mockImplementation(() => Promise.resolve()),
   };
 
   beforeEach(async () => {

@@ -26,7 +26,7 @@ describe('RoomsController (e2e)', () => {
     await app.init();
     await app.getHttpAdapter().getInstance().ready();
 
-    await Room.bulkCreate(ticketsTestData.rooms);
+    await Room.bulkCreate(ticketsTestData.rooms, { ignoreDuplicates: true });
   });
 
   afterAll(async () => {

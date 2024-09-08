@@ -11,6 +11,7 @@ describe('TimeSlotsService', () => {
     findAll: jest
       .fn()
       .mockImplementation(() => Promise.resolve([ticketsTestData.timeSlot])),
+    bulkCreate: jest.fn().mockImplementation(() => Promise.resolve()),
   };
 
   beforeEach(async () => {
