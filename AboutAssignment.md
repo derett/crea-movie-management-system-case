@@ -17,12 +17,10 @@
 - Manager can CRUD Movies
 - All Users can view Movies and a single Movie
 - Customers can Buy Ticket, Watch Movie, Get Watch History
+- Managers can list Rooms and TimeSlots
+- Managers can CRUD Sessions
 - Managers can get all users, get roles and assign role to a user
   - First registered user to the system is set as Manager, rest is Customer. First manager can assign roles to others.
-
-### Missing Scenarios:
-
-- CRUD Operations for Sessions: Was not mentioned on the assignment but with the current setup, if there are no seeders users cannot go further than listing Movies, as there will no Sessions to buy Ticket for.
 
 ### Testing:
 
@@ -86,7 +84,13 @@ $ npm run test:e2e:cov
 
 By importing and using provided [Postman](https://www.postman.com/downloads/) collection in the repository
 
-!!! Requests saved on the Postman Collection is prepared to run on data seeded into the Database by configuration on `.database` directory. As I mentioned on Missing Scenarios sections. On an empty database currently it is not able to set a Link between Movies to Tickets. So without seeders API testing will be limited. !!!
+#### Collection Variables
+
+- baseUrl: Base route address example: `http://localhost:5000/api` required in each Request
+- managerToken: Token provided for `Manager` type of user.
+- customerToken: Token provided for `Customer` type of user.
+
+Instead of inheriting token from parent. Each requests set its own Authorization setting with these variables. In order to test forbidden accesses you can change variables or change Authentication method to `No Auth`
 
 ## How did it went?
 
