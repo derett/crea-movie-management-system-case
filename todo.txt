@@ -41,4 +41,4 @@ Todo
 [ ] Bulk Add, Delete movies
 [X] Logic checks (room should not be double booked, movie age restriction)
 [ ] Movies sorting, filtering
-[ ] Automatic deployment Github to Heroku
+[X] Automatic deployment Github to Heroku (Render)
