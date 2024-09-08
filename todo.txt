@@ -33,15 +33,15 @@ Todo
   Buy tickets
   Watch movies (Customers can watch movies for which they have a valid ticket.)
   View Watch History
-[ ] Testing: Your application should have unit tests and end-to-end tests.
+[X] Testing: Your application should have unit tests and end-to-end tests.
 
 ----------------------------
 [ ] Domain-Driven Design
-[ ] Swagger
+[X] Swagger
 
 ----------------------------
 
 [ ] Bulk Add, Delete movies
-[ ] Logic checks (room should not be double booked, movie age restriction)
+[X] Logic checks (room should not be double booked, movie age restriction)
 [ ] Movies sorting, filtering
 [ ] Automatic deployment Github to Heroku
