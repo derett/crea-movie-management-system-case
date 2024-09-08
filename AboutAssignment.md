@@ -64,11 +64,13 @@ Deployed on [Render](https://render.com/) platorm.
 ### If I had more time:
 
 - Complete nice to have features
+- Enforce Regex Pattern on passwords
 - Change code architecture for Domain-Driven Design
 - Even if there is a custom error handling. I could add more expection handlers especially those throwen by Sequelize
 - Add CRUD operations for Rooms and TimeSlots so that Manager can manage more
 - Think about and add more logical checks if I could find more.
 - Spend more time on Swagger documentation
+- Add more test scenarios to cover more illegal operations from users
 
 ## How to Test
 
