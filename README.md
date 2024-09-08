@@ -6,6 +6,8 @@
 
 Movie Management System Case Study
 
+[About Assignment](AboutAssignment.md)
+
 ## Installation
 
 ```bash
@@ -18,13 +20,11 @@ Before running application. Make sure that configuration are set correctly.
 
 Create `.dev.env` file in `root` directory with same keywords as `.env.sample` file for development environment.
 
-Create `.test.env` file in `root` directory with same keywords as `.env.sample` file for test environment.
-
 Create `.env` file in `root` directory with same keywords as `.env.sample` file for production environment.
 
 Create `config.json` file in `.database/config` directory with same structure as `.database/config/config.sample.json` file for development environment.
 
-Change `NODE_ENV` key in `config.ini` file to `development`, `test` or `production` depending on environment selection.
+Change `NODE_ENV` key in `config.ini` file to `development` or `production` depending on environment selection.
 
 ## Running the app
 
@@ -45,12 +45,15 @@ $ npm run start:prod
 # development environment
 $ npm run db:sync:dev
 
-# test environment
-$ npm run db:sync:test
-
 # production environment
 $ npm run db:sync:prod
 ```
+
+## ER Diagram
+
+<p align="center">
+  <img src="er.png" alt="ER Diagram" />
+</p>
 
 ## Test
 
@@ -64,9 +67,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## ER Diagram
-
-<p align="center">
-  <img src="er.png" alt="ER Diagram" />
-</p>
