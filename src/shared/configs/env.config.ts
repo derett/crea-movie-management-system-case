@@ -24,7 +24,6 @@ const envFileMap = {
 
 const basePath = process.cwd();
 
-require('dotenv').config({ path: join(basePath, '.common.env') });
 require('dotenv').config({
   path: join(
     basePath,
