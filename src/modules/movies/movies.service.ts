@@ -13,7 +13,7 @@ import { Room } from 'src/entities/room.entity';
 
 @Injectable()
 export class MoviesService {
-  private readonly updateAttributtes: Partial<keyof Movie>[] = [
+  private readonly updateAttributes: Partial<keyof Movie>[] = [
     'name',
     'ageRestriction',
   ];
@@ -51,7 +51,7 @@ export class MoviesService {
   }
 
   async update(updateMovieDto: UpdateMovieDto): Promise<Movie> {
-    const updates = pick(updateMovieDto, this.updateAttributtes);
+    const updates = pick(updateMovieDto, this.updateAttributes);
 
     const entity = await this.findOne(updateMovieDto.id);
     if (Object.values(updates).length) {
