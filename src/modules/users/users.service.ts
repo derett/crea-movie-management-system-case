@@ -7,6 +7,8 @@ import { UserRole } from 'src/entities/user-role.entity';
 import { UserRoles } from 'src/shared/enums/roles.enum';
 
 import rolesSeeds from '../../../.database/seeds/roles.json';
+import { SetRoleDto } from './dto/set-role.dto';
+import { ServerError, ServerErrorType } from 'src/shared/configs/errors.config';
 
 @Injectable()
 export class UsersService {
@@ -62,5 +64,44 @@ export class UsersService {
       }
     }
     return newUser;
+  }
+
+  async setRole(dto: SetRoleDto) {
+    const user = await this.model.findByPk(dto.userId);
+
+    if (!user) {
+      throw new ServerError(ServerErrorType.NOT_FOUND, 'User');
+    }
+
+    const role = await this.roleModel.findByPk(dto.roleId);
+
+    if (!role) {
+      throw new ServerError(ServerErrorType.NOT_FOUND, 'Role');
+    }
+
+    // TODO Find a better approach then deleting existing
+    await this.userRolesModel.destroy({ where: { userId: user.id } });
+
+    await this.userRolesModel.create({
+      userId: user.id,
+      roleId: role.id,
+    });
+
+    return;
+  }
+
+  async getRoles() {
+    return this.roleModel.findAll();
+  }
+
+  async getUsers() {
+    return this.model.findAll({
+      attributes: ['id', 'username', 'age'],
+      include: [
+        {
+          model: Role,
+        },
+      ],
+    });
   }
 }
