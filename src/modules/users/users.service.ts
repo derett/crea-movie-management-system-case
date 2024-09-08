@@ -3,10 +3,18 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/entities/users.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Role } from 'src/entities/roles.entity';
+import { UserRole } from 'src/entities/user-role.entity';
+import { UserRoles } from 'src/shared/enums/roles.enum';
+
+import rolesSeeds from '../../../.database/seeds/roles.json';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private model: typeof User) {}
+  constructor(
+    @InjectModel(User) private model: typeof User,
+    @InjectModel(Role) private roleModel: typeof Role,
+    @InjectModel(UserRole) private userRolesModel: typeof UserRole,
+  ) {}
 
   async getByUsername(username: string, includeRoles = false): Promise<User> {
     return this.model.findOne({
@@ -22,6 +30,37 @@ export class UsersService {
   }
 
   async create(userData: CreateUserDto) {
-    return await this.model.create(userData);
+    const isFirstUser = (await this.model.count()) === 0;
+
+    const newUser = await this.model.create(userData);
+    let roles = await this.roleModel.findAll();
+
+    // If roles table is empty, create roles from seeders
+    if (roles.length === 0) {
+      roles = await this.roleModel.bulkCreate(rolesSeeds);
+    }
+
+    if (isFirstUser) {
+      // If its first user to register, set his/her role as manager
+      const role = roles.find((o) => o.name === UserRoles.Manager);
+
+      if (role) {
+        await this.userRolesModel.create({
+          userId: newUser.id,
+          roleId: role.id,
+        });
+      }
+    } else {
+      // else set his/her role as customer
+      const role = roles.find((o) => o.name === UserRoles.Customer);
+
+      if (role) {
+        await this.userRolesModel.create({
+          userId: newUser.id,
+          roleId: role.id,
+        });
+      }
+    }
+    return newUser;
   }
 }
