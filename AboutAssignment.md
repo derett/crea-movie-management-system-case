@@ -2,12 +2,6 @@
 
 [Back to README](README.md)
 
-Deployed on [Render](https://render.com/) platorm.
-
-- URL: `https://crea-movie-management-system-case.onrender.com`
-- API URL: `https://crea-movie-management-system-case.onrender.com/api`
-- [Swagger Docs](https://crea-movie-management-system-case.onrender.com/doc)
-
 ### Database expectations are met:
 
 - User consists of username, password and age
